@@ -21,20 +21,15 @@ export function CounterSettings({setMinMax,startValue,maxValue,setError,setCount
             let valueAsNumber = JSON.parse(valueAsString)
             setMin(isValueIncorrect ? startValue : valueAsNumber)
         }
+        let valueAsString2 = localStorage.getItem('maxValueSettings')
+        if (valueAsString2) {
+            if (!isValueIncorrect)
+                setMax(JSON.parse(valueAsString2))
+        }
     },[])
-
     useEffect(()=>{
         localStorage.setItem('startValueSettings', JSON.stringify(min))
     },[min])
-
-    useEffect(()=>{
-        let valueAsString = localStorage.getItem('maxValueSettings')
-        if (valueAsString) {
-            if (!isValueIncorrect)
-            setMax(JSON.parse(valueAsString))
-        }
-    },[])
-
     useEffect(()=>{
         localStorage.setItem('maxValueSettings', JSON.stringify(max))
     },[max])

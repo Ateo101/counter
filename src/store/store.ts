@@ -1,10 +1,10 @@
-import {CounterReducer, maxValueReducer, startValueReducer} from "../reducers/Reducers";
+import {CounterReducer} from "../reducers/Reducers";
 import {combineReducers, createStore} from "redux";
 
 let rootReducer=combineReducers({
     counter:CounterReducer,
-    maxValue:maxValueReducer,
-    startValue:startValueReducer
+    //maxValue:maxValueReducer,
+    //startValue:startValueReducer
 })
 
 export type rootReducerType=ReturnType<typeof rootReducer>

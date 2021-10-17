@@ -1,29 +1,56 @@
-const counter = 0;
-const startValue = 0;
-const maxValue = 5;
+export type initialStateType = typeof initialState;
+
+const initialState = {
+    counter: 0,
+    startValue: 0,
+    maxValue: 5,
+}
 
 /* ------------------------------------------------------------------------------------------------- */
 
-export const CounterReducer = (state=counter, action: counterTsarType) => {
+export const CounterReducer = (state=initialState, action: counterTsarType):initialStateType => {
     switch (action.type) {
         case 'INCREASE-COUNTER': {
-            return state + 1;
+            return {
+                ...state,
+                counter: state.counter + 1
+            };
         }
         case "RESET-COUNTER": {
-            return state = action.num
+            return {
+                ...state,
+                counter: action.num
+            }
         }
         case "SET-COUNTER":{
-            return  state = action.num
+            return {
+                ...state,
+                counter: action.num
+            }
+        }
+        case 'SET-START-VALUE': {
+            return {
+                ...state,
+                startValue: action.num
+            }
+        }
+        case 'SET-MAX-VALUE': {
+            return {
+                ...state,
+                maxValue: action.num
+            }
         }
         default:
             return state;
     }
 }
 
-export type counterTsarType = IncreaseCounterACType | ResetCounterACType | SetCounterACType
+export type counterTsarType = IncreaseCounterACType | ResetCounterACType | SetCounterACType | SetStartValueACType | SetMaxValueACType
 export type IncreaseCounterACType = ReturnType<typeof IncreaseCounterAC>
 export type ResetCounterACType = ReturnType<typeof ResetCounterAC>
 export type SetCounterACType = ReturnType<typeof SetCounterAC>
+export type SetMaxValueACType = ReturnType<typeof SetMaxValueAC>
+export type SetStartValueACType = ReturnType<typeof SetStartValueAC>
 
 export const IncreaseCounterAC = () => {
     return {
@@ -41,21 +68,12 @@ export const SetCounterAC = (num: number) => {
         num,
     } as const
 }
-
-/* ------------------------------------------------------------------------------------------------- */
-
-export const startValueReducer = (state=startValue, action: startValueTsarType) => {
-    switch (action.type) {
-        case 'SET-START-VALUE': {
-            return  state = action.num
-        }
-        default:
-            return state;
-    }
+export const SetMaxValueAC = (num: number) => {
+    return {
+        type: 'SET-MAX-VALUE',
+        num,
+    } as const
 }
-
-export type startValueTsarType = SetStartValueACType
-export type SetStartValueACType = ReturnType<typeof SetStartValueAC>
 export const SetStartValueAC = (num: number) => {
     return {
         type: 'SET-START-VALUE',
@@ -65,21 +83,25 @@ export const SetStartValueAC = (num: number) => {
 
 /* ------------------------------------------------------------------------------------------------- */
 
-export const maxValueReducer = (state=maxValue, action: maxValueTsarType) => {
+/*export const startValueReducer = (state=startValue, action: startValueTsarType) => {
     switch (action.type) {
-        case 'SET-MAX-VALUE': {
-            return  state = action.num
-        }
+
         default:
             return state;
     }
 }
 
-export type maxValueTsarType = SetMaxValueACType
-export type SetMaxValueACType = ReturnType<typeof SetMaxValueAC>
-export const SetMaxValueAC = (num: number) => {
-    return {
-        type: 'SET-MAX-VALUE',
-        num,
-    } as const
+export type startValueTsarType = SetStartValueACType
+
+
+/!* ------------------------------------------------------------------------------------------------- *!/
+
+export const maxValueReducer = (state=maxValue, action: maxValueTsarType) => {
+    switch (action.type) {
+
+        default:
+            return state;
+    }
 }
+
+export type maxValueTsarType = SetMaxValueACType*/
